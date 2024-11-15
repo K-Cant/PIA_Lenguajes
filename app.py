@@ -63,7 +63,7 @@ def login():
 
             return redirect(url_for('pelis'))
         else:
-            return render_template('login.html', message="Correo o constraseña incorrectos")
+            return render_template('login.html', message="Correo o constrasena incorrectos")
 
     return render_template('login.html')
 
@@ -93,16 +93,16 @@ def pelis():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
     try:
-        cursor.execute("SELECT * FROM reseña")
-        data_reseñas = cursor.fetchall()
+        cursor.execute("SELECT * FROM resena")
+        data_resenas = cursor.fetchall()
     except pymysql.MySQLError as e:
         print(f"Error: {e}")
-        data_reseñas = []
+        data_resenas = []
     finally:
         cursor.close()
         connection.close()
 
-    return render_template('pelis.html', peliculas_populares = popular_data, reseñas = data_reseñas)
+    return render_template('pelis.html', peliculas_populares = popular_data, resenas = data_resenas)
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
@@ -111,16 +111,16 @@ def perfil():
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
     try:
-        cursor.execute("SELECT * FROM reseña WHERE email = %s", (email))
-        data_reseñas = cursor.fetchall()
+        cursor.execute("SELECT * FROM resena WHERE email = %s", (email))
+        data_resenas = cursor.fetchall()
     except pymysql.MySQLError as e:
         print(f"Error: {e}")
-        data_reseñas = []
+        data_resenas = []
     finally:
         cursor.close()
         connection.close()
 
-    return render_template('perfil.html', reseñas = data_reseñas)
+    return render_template('perfil.html', resenas = data_resenas)
 
 @app.route('/act_Data', methods=['POST'])
 def act_Data():
@@ -144,21 +144,21 @@ def act_Data():
 
     return render_template('perfil.html')
 
-@app.route('/nueva_reseña', methods=['POST'])
-def nueva_reseña():
+@app.route('/nueva_resena', methods=['POST'])
+def nueva_resena():
     email = session['email']
     user = session['username']
     titulo = request.form['titulo']
-    reseña = request.form['reseña']
+    resena = request.form['resena']
     poster_path = request.form['poster_path']
     d = datetime.now()
-    date_reseña = d.strftime("%Y-%m-%d %H:%M:%S")
+    date_resena = d.strftime("%Y-%m-%d %H:%M:%S")
 
     connection = getDBConnection()
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
     try:
-        cursor.execute("INSERT INTO reseña (titulo, reseña, date_reseña, email, username, poster_path) VALUES (%s,%s,%s, %s, %s, %s)", (titulo, reseña, date_reseña, email, user, poster_path))
+        cursor.execute("INSERT INTO resena (titulo, resena, date_resena, email, username, poster_path) VALUES (%s,%s,%s, %s, %s, %s)", (titulo, resena, date_resena, email, user, poster_path))
         connection.commit()
         return redirect(url_for('perfil'))
     except pymysql.MySQLError as e:
@@ -177,7 +177,7 @@ def delete():
     cursor = connection.cursor()
 
     try:
-        cursor.execute("DELETE FROM reseña WHERE id =%s", (id))
+        cursor.execute("DELETE FROM resena WHERE id =%s", (id))
         connection.commit()
     except pymysql.MySQLError as e:
         print(f"Error: {e}")
@@ -187,17 +187,17 @@ def delete():
 
     return redirect(url_for('perfil'))
 
-@app.route('/editar_reseña', methods = ['POST'])
-def editar_reseña():
+@app.route('/editar_resena', methods = ['POST'])
+def editar_resena():
     connection = getDBConnection()
     cursor = connection.cursor(pymysql.cursors.DictCursor)
     
     id = request.form['id']
     titulo = request.form['titulo']
-    reseña = request.form['reseña']
+    resena = request.form['resena']
 
     try:
-        cursor.execute("UPDATE reseña SET titulo = %s, reseña = %s WHERE id = %s", (titulo, reseña, id))
+        cursor.execute("UPDATE resena SET titulo = %s, resena = %s WHERE id = %s", (titulo, resena, id))
         connection.commit()
         return redirect(url_for('perfil'))
     except pymysql.MySQLError as e:

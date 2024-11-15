@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>n
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>movieBOX</title>
@@ -57,7 +57,7 @@
                     <label>USUARIO : </label>
                     <input type="text" class="form-control mb-3" name="user" required>
 
-                    <label>CONTRASEÑA</label>
+                    <label>CONTRASEnA</label>
                     <input type="password" name="password" id="password" class="form-control mb-3" required>
 
                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="nueva_reseña" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal fade" id="nueva_resena" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -75,7 +75,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="/nueva_reseña" method="post">
+                <form action="/nueva_resena" method="post">
                     <label>Título : </label>
                     <input type="text" class="form-control mb-3" name="titulo" id="movie-title" required>
 
@@ -87,17 +87,17 @@
 
                     <input type="hidden" name="poster_path" id="poster-path">
 
-                    <label>Reseña : </label>
-                    <textarea type="text" name="reseña" rows="5" class="form-control mb-3" required></textarea>
+                    <label>Resena : </label>
+                    <textarea type="text" name="resena" rows="5" class="form-control mb-3" required></textarea>
 
-                    <button type="submit" class="btn btn-primary">AÑADIR</button>
+                    <button type="submit" class="btn btn-primary">AnADIR</button>
                 </form>
             </div>
           </div>
         </div>
     </div>
 
-    <div class="modal fade" id="editar_reseña" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal fade" id="editar_resena" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -105,13 +105,13 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form action="/editar_reseña" method="post">
-                    <input type="hidden" style="display:inline;" id="id-reseña" name="id">
+                <form action="/editar_resena" method="post">
+                    <input type="hidden" style="display:inline;" id="id-resena" name="id">
                     <label>Título : </label>
                     <input type="text" class="form-control mb-3" name="titulo" id="titulo" required>
 
-                    <label>Reseña : </label>
-                    <textarea type="text" name="reseña" rows="5" class="form-control mb-3" id="reseña" required></textarea>
+                    <label>Resena : </label>
+                    <textarea type="text" name="resena" rows="5" class="form-control mb-3" id="resena" required></textarea>
 
                     <button type="submit" class="btn btn-primary">EDITAR</button>
                 </form>
@@ -127,19 +127,19 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">{{session['username']}}</h5>
                         <p class="card-text"><strong>Email:</strong> {{session['email']}}</p>
-                        <p class="card-text"><strong>Contraseña:</strong> **********</p>
+                        <p class="card-text"><strong>Contrasena:</strong> **********</p>
                         <button type="submit" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#act_datos">Cambiar datos :</button>
                     </div>
                 </div>
             </div>
     
             <div class="col-9">
-                <h2>Mis Reseñas 
-                    <button type="submit" class="btn btn-light" style="border: none; border-radius: 50%;" data-bs-toggle="modal" data-bs-target="#nueva_reseña">
+                <h2>Mis Resenas 
+                    <button type="submit" class="btn btn-light" style="border: none; border-radius: 50%;" data-bs-toggle="modal" data-bs-target="#nueva_resena">
                         <i class="fa-solid fa-plus"></i></button>
                 </h2>
                 <div class="list-group">
-                    {% for r in reseñas %}
+                    {% for r in resenas %}
 
                         <div class="list-group-item">
 
@@ -152,10 +152,10 @@
                                         <h5 class="mb-1">{{ r.titulo }}</h5>
                                     </div>
         
-                                    <p class="mb-1">{{ r.reseña }}</p>
-                                    <small>{{ r.date_reseña }}</small>
+                                    <p class="mb-1">{{ r.resena }}</p>
+                                    <small>{{ r.date_resena }}</small>
                                     <div class="text-end d-block">
-                                        <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar_reseña" data-id="{{r.id}}" data-titulo="{{r.titulo}}" data-reseña="{{r.reseña}}"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editar_resena" data-id="{{r.id}}" data-titulo="{{r.titulo}}" data-resena="{{r.resena}}"><i class="fa-solid fa-pen-to-square"></i></button>
                                         <form action="/delete" method="post" style="display:inline;">
                                             <input type="hidden" name="id" style="display:inline;" value="{{ r.id }}">
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
@@ -177,16 +177,16 @@
     </div>
 
     <script>
-        $('#editar_reseña').on('show.bs.modal', function(event){
+        $('#editar_resena').on('show.bs.modal', function(event){
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var titulo = button.data('titulo')
-            var reseña = button.data('reseña')
+            var resena = button.data('resena')
 
             var modal = $(this)
-            modal.find('#id-reseña').val(id);
+            modal.find('#id-resena').val(id);
             modal.find('#titulo').val(titulo);
-            modal.find('#reseña').val(reseña);
+            modal.find('#resena').val(resena);
         })
 
         const input = document.getElementById('movie-title');

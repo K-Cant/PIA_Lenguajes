@@ -72,24 +72,24 @@
     </div>
     
     <div class="px-3">
-        <h1 style="margin-bottom: 70px;" class="text-center">RESEÑAS</h1>
+        <h1 style="margin-bottom: 70px;" class="text-center">RESEnAS</h1>
         <div class="row">
-            {% for reseña in reseñas %}
+            {% for resena in resenas %}
                 <div class="col-10 col-lg-3 col-md-3 mb-4">
-                    <img src="https://image.tmdb.org/t/p/w500{{ reseña.poster_path }}" class="card-img-top img-fluid" alt="{{ reseña.title }}" data-bs-toggle="modal" data-bs-target="#inforeseña{{ reseña.id }}">
-                    <div class="modal fade" id="inforeseña{{ reseña.id }}" tabindex="-1">
+                    <img src="https://image.tmdb.org/t/p/w500{{ resena.poster_path }}" class="card-img-top img-fluid" alt="{{ resena.title }}" data-bs-toggle="modal" data-bs-target="#inforesena{{ resena.id }}">
+                    <div class="modal fade" id="inforesena{{ resena.id }}" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title fs-5">{{ reseña.titulo }}</h5>
+                                    <h5 class="modal-title fs-5">{{ resena.titulo }}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>{{ reseña.reseña }}</p>
-                                    <small>{{reseña.date_reseña}}</small>
+                                    <p>{{ resena.resena }}</p>
+                                    <small>{{resena.date_resena}}</small>
                                 </div>
                                 <div class="modal-footer">
-                                    <small>By: {{reseña.username}}</small>
+                                    <small>By: {{resena.username}}</small>
                                 </div>
 
                             </div>
